@@ -17,9 +17,10 @@ $sql1 = 'SELECT * FROM cars';
 $ret1 = mysqli_query($conn, $sql1);
 if(mysqli_num_rows($ret1)>0){
     while($row = mysqli_fetch_assoc($ret1)){
-        echo "username : {$row['username']} <br>".
-        "email : {$row['email']} <br>".
-        "password : {$row['password']} <br>".
+        echo "Brand : {$row['Brand']} <br>".
+        "Model : {$row['Model']} <br>".
+        "Year : {$row['Year']} <br>".
+        "Price : {$row['Price']} <br>".   
     }
 }
 else{
