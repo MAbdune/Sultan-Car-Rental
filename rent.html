@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sultan Car Rent</title>
+    <link rel="stylesheet" href="stilo.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const location = document.querySelector('#location').value;
+        const pickUpDate = new Date(document.querySelector('#pick-up-date').value);
+        const returnDate = new Date(document.querySelector('#return-date').value);
+        const carModel = document.querySelector('#car-model').value;
+
+        if (returnDate < pickUpDate) {
+            alert("Return date cannot be before pick-up date.");
+            return;
+        }
+
+        if (location === "Choose Your Location" || pickUpDate === "" || returnDate === "" || carModel === "Choose Your Car") {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        let numDays = 0;
+        if (returnDate.getTime() === pickUpDate.getTime()) {
+            numDays = 1;
+        } else {
+            const oneDay = 24 * 60 * 60 * 1000;
+            numDays = Math.round((returnDate - pickUpDate) / oneDay);
+        }
+
+        let pricePerDay;
+        switch (carModel) {
+            case "Mercedes-Benz AMG E63 S":
+                pricePerDay = 280;
+                break;
+            case "Mercedes-Benz AMG G550":
+                pricePerDay = 270;
+                break;
+            case "Mercedes-Benz Maybach S500":
+                pricePerDay = 300;
+                break;
+            case "Mercedes-Benz AMG S 63":
+                pricePerDay = 220;
+                break;
+            case "Mercedes-Benz AMG GT 63 S":
+                pricePerDay = 320;
+                break;
+            case "Mercedes-Benz AMG GLE 63 S":
+                pricePerDay = 210;
+                break;
+            default:
+                alert("Invalid car model selected.");
+                return;
+        }
+
+        const totalPrice = pricePerDay * numDays;
+
+        const message = `        Congratulations! You have successfully rented a car. Here are 
+        the details:
+        Location: ${location}
+        Pick-Up Date: ${pickUpDate}
+        Return Date: ${returnDate}
+        Car Model: ${carModel}
+        Number of Days: ${numDays}
+        Total Price: $${totalPrice}`;
+
+        alert(message);
+        document.querySelector('#location').value = "Choose Your Location";
+        document.querySelector('#pick-up-date').value = "";
+        document.querySelector('#return-date').value = "";
+        document.querySelector('#car-model').value = "Choose Your Car";
+    }
+</script>
+
+<body>
+    <header>
+        <a href="main.html">
+            <h1>Sultan<br>Car<br>Rental</h1>
+        </a>
+
+        <div class="header-btn">
+            <a href="sign_up.html" class="sign-up">Sign Up</a>
+            <a href="log_in.html" class="log-in">Log In</a>
+        </div>
+    </header>
+    <section class="cars" id="cars">
+        <div class="heading">
+            <span>Cars</span>
+            <h1>Explore Hot Deals</h1>
+        </div>
+        <div class="services-container">
+            <div class="box">
+                <div class="box-img">
+                    <img src="img/E63s.jpg" alt="">
+                </div>
+                <p>2023</p>
+                <h3>Mercedes-AMG E63 S</h3>
+                <h2>$280 <span>Day</span></h2>
+            </div>
+
+            <div class="box">
+                <div class="box-img">
+                    <img src="img/gclass.jpg" alt="">
+                </div>
+                <p>2021</p>
+                <h3>Mercedes-AMG <br>G550</h3>
+                <h2>$270 <span>Day</span> </h2>
+            </div>
+
+            <div class="box">
+                <div class="box-img">
+                    <img src="img/sclass.jpg" alt="">
+                </div>
+                <p>2022</p>
+                <h3>Mercedes-AMG S 550</h3>
+                <h2>$300 <span>Day</span> </h2>
+            </div>
+
+            <div class="box">
+                <div class="box-img">
+                    <img src="img/s63.jpg" alt="">
+                </div>
+                <p>2017</p>
+                <h3>Mercedes-AMG <br>S 63</h3>
+                <h2>$220 <span>Day</span> </h2>
+            </div>
+
+            <div class="box">
+                <div class="box-img">
+                    <img src="img/gts.jpg" alt="">
+                </div>
+                <p>2020</p>
+                <h3>Mercedes-AMG GT 63 S</h3>
+                <h2>$320 <span>Day</span></h2>
+            </div>
+
+            <div class="box">
+                <div class="box-img">
+                    <img src="img/gle.jpg" alt="">
+                </div>
+                <p>2022</p>
+                <h3>Mercedes-AMG GLE 63 S</h3>
+                <h2>$210 <span>Day</span></h2>
+            </div>
+        </div>
+    </section>
+    <section class="frm">
+        <div class="form-container">
+            <form onsubmit="handleSubmit(event)">
+                <div class="options">
+                    <span>Location</span>
+                    <select id="location" required>
+                        <option value="Choose Your Location" disabled selected>Choose Your Location</option>
+                        <option value="Beirut">Beirut</option>
+                        <option value="Akkar">Akkar</option>
+                        <option value="Mount Of Lebanon">Mount Of Lebanon</option>
+                        <option value="North Lebanon">North Lebanon</option>
+                        <option value="South Lebanon">South Lebanon</option>
+                        <option value="Bekaa">Bekaa</option>
+                        <option value="Nabatiyeh">Nabatiyeh</option>
+                        <option value="Baalbak">Baalbak</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span>Pick-Up Date</span>
+                    <input type="date" name="" id="pick-up-date" required>
+                </div>
+                <div class="input-box">
+                    <span>Return Date</span>
+                    <input type="date" name="" id="return-date" required>
+                </div>
+                <div class="options">
+                    <span>Car Model</span>
+                    <select id="car-model" required>
+                        <option value="Choose Your Car" disabled selected>Choose Your Car</option>
+                        <option value="Mercedes-Benz AMG E63 S">Mercedes-Benz AMG E63 S</option>
+                        <option value="Mercedes-Benz AMG G550">Mercedes-Benz AMG G550</option>
+                        <option value="Mercedes-Benz AMG S500">Mercedes-Benz AMG S500</option>
+                        <option value="Mercedes-Benz AMG S 63">Mercedes-Benz AMG S 63</option>
+                        <option value="Mercedes-Benz AMG GT 63 S">Mercedes-Benz AMG GT 63 S</option>
+                        <option value="Mercedes-Benz AMG GLE 63 S">Mercedes-Benz AMG GLE 63 S</option>
+                    </select>
+                </div>
+                <input type="submit" value="Submit" id="" class="btn" required>
+            </form>
+    </section>
+    <footer>
+        <div class="copyright">Sultan Car Rental &#169;2024 All Right Reserved</div>
+    </footer>
+</body>
+
+</html>
